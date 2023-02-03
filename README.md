@@ -46,7 +46,7 @@ Openfortivpn configuration can be provided as command-line arguments to this
 image, as a mounted config file, or a combination of both. For details about
 openfortivpn configuration run
 
-    docker run --rm jeffre/openfortivpn-haproxy:latest -h
+    docker run --rm innobraingmbh/openfortivpn-socat:latest -h
 
 
 # Examples
@@ -58,7 +58,7 @@ docker run --rm -it \
     --cap-add=NET_ADMIN \
     -p 127.0.0.1:3389:3389 \
     -e PORT_FORWARD="3389:10.0.0.1:3389" \
-    jeffre/openfortivpn-haproxy:latest \
+    innobraingmbh/openfortivpn-socat:latest \
     fortinet.example.com:8443 \
     --username=foo \
     --password=bar \
@@ -76,7 +76,7 @@ docker run --rm -it \
     -e PORT_FORWARD1="1111:10.0.0.1:3389" \
     -p 127.0.0.1:2222:2222 \
     -e PORT_FORWARD2="2222:10.0.0.2:22" \
-    jeffre/openfortivpn-haproxy:latest \
+    innobraingmbh/openfortivpn-socat:latest \
     fortinet.example.com:8443 \
     --username=foo \
     --password=bar \
@@ -103,7 +103,7 @@ docker run --rm -it \
     -p "1111:1111" \
     -e PORT_FORWARD="1111:10.0.0.1:3389" \
     -v "$(pwd)/config:/etc/openfortivpn/config" \
-    jeffre/openfortivpn-haproxy:latest \
+    innobraingmbh/openfortivpn-socat:latest \
     --otp=123456
 ```
 
@@ -117,7 +117,7 @@ docker run --rm -it \
     --privileged \
     -p "1111:1111" \
     -e PORT_FORWARD="3389:10.0.0.1:3389" \
-    jeffre/openfortivpn-haproxy:latest \
+    innobraingmbh/openfortivpn-socat:latest \
     fortinet.example.com:8443
 ```
 
