@@ -1,4 +1,4 @@
-# openfortivpn-haproxy
+# openfortivpn-socat
 This docker image proxies tcp ports across a Fortinet VPN to remote host using
 [openfortivpn](https://github.com/adrienverge/openfortivpn)
 and [socat](http://www.dest-unreach.org/socat/).
