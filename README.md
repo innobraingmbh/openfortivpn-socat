@@ -127,8 +127,8 @@ To use this, add the VPN as a service. Set all needed env vars, start once. Then
   vpn:
     build:
       context: .
-      dockerfile: vpn.dockerfile
-    image: innobraingmbh/docker-forticlient:latest
+      dockerfile: Dockerfile
+    image: innobraingmbh/openfortivpn-socat:latest
     environment:
       - PORT_FORWARD
     command: ${VPNADDR} --username=${VPNUSER} --password=${VPNPASS} --trusted-cert=${TRUSTED_CERT}
