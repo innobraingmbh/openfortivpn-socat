@@ -1,24 +1,25 @@
 # openfortivpn-haproxy
 This docker image proxies tcp ports across a Fortinet VPN to remote host using
 [openfortivpn](https://github.com/adrienverge/openfortivpn)
-and ~~[haproxy](https://www.haproxy.org/)~~ 
-[socat](http://www.dest-unreach.org/socat/).
+and [socat](http://www.dest-unreach.org/socat/).
+
+Originally created by: https://github.com/jeffre/openfortivpn-socat
 
 
 # Create docker image
 1. Clone this repository
 
-        git clone https://github.com/jeffre/openfortivpn-haproxy
+        git clone https://github.com/innobraingmbh/openfortivpn-socat
 
 2. Build the image
 
-        docker build ./openfortivpn-haproxy \
-            -t "jeffre/openfortivpn-haproxy:latest"
+        docker build ./openfortivpn-socat \
+            -t "innobraingmbh/openfortivpn-socat:latest"
 
     Alternatively, you may specify the openfortivpn version using `--build-arg`
 
-        docker build ./openfortivpn-haproxy \
-            -t "jeffre/openfortivpn-haproxy:v1.17.1" \
+        docker build ./openfortivpn-socat \
+            -t "innobraingmbh/openfortivpn-socat:v1.17.1" \
             --build-arg OPENFORTIVPN_VERSION=v1.17.1
 
 
@@ -118,4 +119,24 @@ docker run --rm -it \
     -e PORT_FORWARD="3389:10.0.0.1:3389" \
     jeffre/openfortivpn-haproxy:latest \
     fortinet.example.com:8443
+```
+
+# Example docker-compose
+To use this, add the VPN as a service. Set all needed env vars, start once. Then add the thrown cert sha into the `TRUSTED_CERT` env var.
+```
+  vpn:
+    build:
+      context: .
+      dockerfile: vpn.dockerfile
+    image: innobraingmbh/docker-forticlient:latest
+    environment:
+      - PORT_FORWARD
+    command: ${VPNADDR} --username=${VPNUSER} --password=${VPNPASS} --trusted-cert=${TRUSTED_CERT}
+    labels:
+      - container-type=vpnclient
+      - vpn-type=openfortivpn
+    privileged: true
+    networks:
+      - default
+    restart: unless-stopped
 ```
